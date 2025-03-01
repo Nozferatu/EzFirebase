@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "907277449324",
+    "firebase_url": "https://tiendacartasinvizimals-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tiendacartasinvizimals",
+    "storage_bucket": "tiendacartasinvizimals.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907277449324:android:9f1dd173d848807868c049",
+        "android_client_info": {
+          "package_name": "com.cmj.ezfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfBr4BBYb1wBUew7oMNQcNpnUxRz9QT7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
