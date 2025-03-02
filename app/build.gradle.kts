@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("maven-publish")
 }
 
 android {
@@ -33,6 +34,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.Nozferatu"
+            artifactId = "EzFirebase"
+            version = "0.1.1-pre"
+
+            from(components.findByName("release"))
+        }
     }
 }
 
