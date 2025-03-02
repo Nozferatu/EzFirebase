@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("maven-publish")
@@ -10,11 +10,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.cmj.ezfirebase"
+//        applicationId = "com.cmj.ezfirebase"
         minSdk = 30
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+//        targetSdk = 34
+//        versionCode = 1
+//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,7 +42,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.Nozferatu"
             artifactId = "EzFirebase"
-            version = "0.1.1-pre"
+            version = "0.1.4-pre"
 
             from(components.findByName("release"))
         }
