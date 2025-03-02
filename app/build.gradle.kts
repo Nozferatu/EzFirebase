@@ -57,7 +57,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("org.mockito:mockito-core:5.15.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     //Firebase
