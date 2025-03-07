@@ -9,13 +9,13 @@ import kotlin.reflect.full.memberProperties
 
 class EzFirebase(var databaseRef: DatabaseReference) {
     fun stringToFullReference(path: String): DatabaseReference{
-        val finalRefernece = databaseRef
+        var finalReference = databaseRef
         val nodes = path.split('/')
         nodes.forEach { child ->
-            finalRefernece.child(child)
+            finalReference = finalReference.child(child)
         }
 
-        return finalRefernece
+        return finalReference
     }
 
     inline fun <reified T : Any> getObjectByValue(
