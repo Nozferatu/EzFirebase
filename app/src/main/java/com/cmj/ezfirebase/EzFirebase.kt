@@ -71,8 +71,10 @@ class EzFirebase(var databaseRef: DatabaseReference) {
         stringToFullReference(reference).child(key).setValue(value)
     }
 
-    inline fun <reified T : Any> getObjectsByOnDataChange(
+    inline fun <reified T : Any> getObjectsOnDataChangeByValue(
         reference: String,
+        propertyName: String,
+        propertyValue: Any,
         crossinline callback: (List<T>?) -> Unit
     ){
         val ref = stringToFullReference(reference)
@@ -83,7 +85,15 @@ class EzFirebase(var databaseRef: DatabaseReference) {
                 for (itemSnapshot in dataSnapshot.children) {
                     val item = itemSnapshot.getValue(T::class.java)
                     if (item != null) {
-                        items.add(item)
+                        val property = T::class.memberProperties.find { it.name == propertyName }
+                        if (property != null) {
+                            val value = property.getter.call(item)
+                            if (value == propertyValue) {
+                                items.add(item)
+                            }
+                        } else {
+                            Log.e("EzFirebase", "Property $propertyName not found in class ${T::class.simpleName}")
+                        }
                     }
                 }
                 callback(items)
