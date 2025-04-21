@@ -52,6 +52,40 @@ class EzFirebase(var databaseRef: DatabaseReference) {
         })
     }
 
+    inline fun <reified T : Any> getObjectsByValue(
+        reference: String,
+        propertyName: String,
+        propertyValue: Any,
+        crossinline callback: (List<T>?) -> Unit
+    ) {
+        stringToFullReference(reference).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var objectsList = mutableListOf<T>()
+                for (child in snapshot.children) {
+                    val pojo = child.getValue(T::class.java)
+                    if (pojo != null) {
+                        val property = T::class.memberProperties.find { it.name == propertyName }
+                        if (property != null) {
+                            val value = property.getter.call(pojo)
+                            if (value == propertyValue) {
+                                objectsList.add(pojo)
+                                break
+                            }
+                        } else {
+                            Log.e("EzFirebase", "Property $propertyName not found in class ${T::class.simpleName}")
+                        }
+                    }
+                }
+                callback(objectsList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("EzFirebase", "Error getting object: ${error.message}")
+                callback(null)
+            }
+        })
+    }
+
     fun putObject(
         reference: String,
         value: Any
