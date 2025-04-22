@@ -42,7 +42,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.Nozferatu"
             artifactId = "EzFirebase"
-            version = "0.1.6.3-pre"
+            version = "0.1.6.4-pre"
 
             afterEvaluate {
                 from(components["release"])

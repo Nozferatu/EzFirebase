@@ -105,6 +105,13 @@ class EzFirebase(var databaseRef: DatabaseReference) {
         stringToFullReference(reference).child(key).setValue(value)
     }
 
+    fun deleteObject(
+        reference: String,
+        key: String
+    ) {
+        stringToFullReference(reference).child(key).removeValue()
+    }
+
     inline fun <reified T : Any> getObjectsOnDataChangeByValue(
         reference: String,
         propertyName: String,
