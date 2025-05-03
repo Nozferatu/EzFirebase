@@ -112,6 +112,30 @@ class EzFirebase(var databaseRef: DatabaseReference) {
         stringToFullReference(reference).child(key).removeValue()
     }
 
+    inline fun <reified T : Any> getObjectsOnDataChange(
+        reference: String,
+        crossinline callback: (List<T>?) -> Unit
+    ){
+        val ref = stringToFullReference(reference)
+
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val items = mutableListOf<T>()
+                for (itemSnapshot in dataSnapshot.children) {
+                    val item = itemSnapshot.getValue(T::class.java)
+                    if (item != null) {
+                        items.add(item)
+                    }
+                }
+                callback(items)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) { callback(null) }
+        }
+
+        ref.addValueEventListener(valueEventListener)
+    }
+
     inline fun <reified T : Any> getObjectsOnDataChangeByValue(
         reference: String,
         propertyName: String,
