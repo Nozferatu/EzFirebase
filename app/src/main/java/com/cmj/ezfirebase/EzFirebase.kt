@@ -69,7 +69,6 @@ class EzFirebase(var databaseRef: DatabaseReference) {
                             val value = property.getter.call(pojo)
                             if (value == propertyValue) {
                                 objectsList.add(pojo)
-                                break
                             }
                         } else {
                             Log.e("EzFirebase", "Property $propertyName not found in class ${T::class.simpleName}")
